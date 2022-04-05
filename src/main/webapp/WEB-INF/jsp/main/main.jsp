@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	마이웹페이지
+	<br/> 웹페이지 본문
 </body>
 </html>
