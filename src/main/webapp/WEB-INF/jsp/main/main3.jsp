@@ -7,12 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- 자바의 표현식 -->
-	<%=request.getAttribute("userNo")%>
-	
-	<br/>
-	
-	<!-- 스크립트 -->
-	<div>${userId}</div>
+자바로받는방법:<%=request.getAttribute("userNo") %>
+Expression Language EL방법: ${userId}
 </body>
 </html>
