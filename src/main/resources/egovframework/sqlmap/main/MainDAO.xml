@@ -3,12 +3,21 @@
 
 <mapper namespace="egov.main.dao.MainDAO">
 
-   <!-- 메인항목 불러오기-->
-   <select id="selectMain" statementType="CALLABLE" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-   SELECT 
-   USER_ID AS USER_ID
-   FROM EGOV_USER
-   where rownum=1
-   </select>
-   
+	<!-- 메인항목 불러오기 -->
+	<select id="selectMain" statementType="CALLABLE" resultType="java.util.HashMap"
+		parameterType="java.util.HashMap">
+		SELECT
+		USER_ID AS USER_ID
+		FROM EGOV_USER
+		where rownum=1
+	</select>
+
+	<select id="selectLogin" statementType="CALLABLE" resultType="java.util.HashMap"
+		parameterType="java.util.HashMap">
+		SELECT
+		USER_ID AS USER_ID
+		FROM EGOV_USER
+		where USER_ID = #{userId}
+	</select>
+
 </mapper>

@@ -91,19 +91,45 @@ public class MainController {
 		return "main/main3";
 	}
 	
-	@RequestMapping(value = "/main5.do")
+	
+	@RequestMapping(value="/login.do")
+	public String login(HttpServletRequest request, ModelMap model){
+		return "login/login";
+	}
+
+	@RequestMapping(value = "/loginSubmission.do")
 	public String main5(HttpServletRequest request, ModelMap model) throws Exception{
-		String userId = "";
+		String userId = request.getParameter("id").toString();
+		
+		// id를 10자 이상 입력할 시, 로그인페이지로 리다이렉트 
+		if (userId.length() > 10){
+			return "redirect:/login.do";
+		}
 		
 		// VO
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
-		resultMap = mainService.selectMain(paramMap);
-		userId = resultMap.get("USER_ID").toString();
-		model.addAttribute("userId", userId);
 		
-		return "main/main3";
+		paramMap.put("userId", userId);
+		
+		resultMap = mainService.selectLogin(paramMap);
+		
+		// 일치하는 id가 미존재할 시
+		if(null == resultMap){
+			return "redirect:/login.do";
+		}
+		
+		// 일치하는 id가 존재할 시
+		request.getSession().setAttribute("USER_ID", userId);
+		
+		return "main/main4";
 	}
-
+	
+	// 로그인 성공으로 loginSubmission.do로 이동 후, main4.do로 가도 동일한 화면이 나오돍
+	// 로그인하지 않고 main4로 가면 화면이 안나옴
+	@RequestMapping(value="/main4.do")
+	public String main4(HttpServletRequest request, ModelMap model){
+		return "main/main4";
+	}
 }
 
