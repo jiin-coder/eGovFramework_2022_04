@@ -6,6 +6,8 @@ import java.util.HashMap;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -18,6 +20,7 @@ import egov.main.service.MainService;
 @Controller
 public class MainController {
 	
+	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	@Resource(name="MainService") MainService mainService;
 
@@ -126,6 +129,9 @@ public class MainController {
 		// 일치하는 id가 존재할 시
 		request.getSession().setAttribute("USER_ID", userId);
 		
+		logger.info("유저접속 ==============");
+		logger.info("접속한 유저 id:" + userId + ", 접속시간 : ");
+		logger.info("유저접속 ==============");
 		return "main/main4";
 	}
 	
