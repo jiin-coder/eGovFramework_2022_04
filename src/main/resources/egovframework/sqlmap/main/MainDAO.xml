@@ -3,6 +3,8 @@
 
 <mapper namespace="egov.main.dao.MainDAO">
 
+	<resultMap type="java.util.HashMap" id="oracleResultMap"></resultMap>
+
 	<!-- 메인항목 불러오기 -->
 	<select id="selectMain" statementType="CALLABLE" resultType="java.util.HashMap"
 		parameterType="java.util.HashMap">
@@ -17,7 +19,16 @@
 		SELECT
 		USER_ID AS USER_ID
 		FROM EGOV_USER
-		where USER_ID = #{userId}
+		where USER_ID =
+		#{userId}
 	</select>
+
+	<select id="selectLogin2" statementType="CALLABLE" resultType="java.util.HashMap"
+		parameterType="java.util.HashMap">
+		{ CALL web_main.selectLogin(#{userId},#{ref_cursor, mode=OUT,
+		jdbcType=CURSOR, javaType=ResultSet, resultMap=oracleResultMap})}
+	</select>
+
+
 
 </mapper>

@@ -22,8 +22,12 @@ public class MainServiceImpl extends EgovAbstractServiceImpl implements MainServ
 
 	@Override
 	public HashMap<String, Object> selectLogin(HashMap<String, Object> paramMap) throws Exception {
-		// TODO Auto-generated method stub
 		return mainDAO.selectLogin(paramMap);
+	}
+
+	@Override
+	public void selectLogin2(HashMap<String, Object> paramMap) throws Exception {
+		mainDAO.selectLogin2(paramMap);
 	}
 	
 }

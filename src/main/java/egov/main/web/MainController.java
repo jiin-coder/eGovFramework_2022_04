@@ -1,5 +1,6 @@
 package egov.main.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.annotation.Resource;
@@ -108,15 +109,18 @@ public class MainController {
 		
 		// VO
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		
 		paramMap.put("userId", userId);
+		paramMap.put("ref_cursor", null);
 		
-		resultMap = mainService.selectLogin(paramMap);
+		mainService.selectLogin2(paramMap);
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		list = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
 		
-		// 일치하는 id가 미존재할 시
-		if(null == resultMap){
+		if(list.size() == 0){
 			return "redirect:/login.do";
+		} else {
+			userId = list.get(0).get("USER_ID").toString();
 		}
 		
 		// 일치하는 id가 존재할 시
@@ -126,7 +130,7 @@ public class MainController {
 	}
 	
 	// 로그인 성공으로 loginSubmission.do로 이동 후, main4.do로 가도 동일한 화면이 나오돍
-	// 로그인하지 않고 main4로 가면 화면이 안나옴
+	// 로그인하지 않고 main4로 가면 화면이 안나옴 
 	@RequestMapping(value="/main4.do")
 	public String main4(HttpServletRequest request, ModelMap model){
 		return "main/main4";
