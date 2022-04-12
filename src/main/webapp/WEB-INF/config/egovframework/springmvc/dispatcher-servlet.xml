@@ -69,8 +69,14 @@
 	<!-- AOP -->
 	<!-- bean 등록 -->
 	<bean id="exampleAop" class="egov.lib.util.ExampleAop" />
+	<!--Proxy 생성코드 추가.-->
+	<aop:aspectj-autoproxy/>
 
+	
+	 
 	<!-- Aspect 설정 -->
+	
+	<!--
 	<aop:config>
 		<aop:aspect ref="exampleAop">
 			<aop:pointcut id="targetExample" expression="execution(* egov.**.web.*Controller.*(..))" />
@@ -87,8 +93,9 @@
 			<aop:pointcut id="targetExample3" expression="execution(* egov.**.web.*Controller.*(..))" />
 			<aop:around pointcut-ref="targetExample3" method="aroundMethod" />
 		</aop:aspect>
-
-	</aop:config>
+	</aop:config> 
+	--> 
 	<!-- /AOP -->
+	
     
 </beans>
