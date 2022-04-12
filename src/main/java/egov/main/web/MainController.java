@@ -141,5 +141,10 @@ public class MainController {
 	public String main4(HttpServletRequest request, ModelMap model){
 		return "main/main4";
 	}
+	
+	@RequestMapping(value = "/exception.do")
+	public String exception(HttpServletRequest request, ModelMap model) throws Exception{
+		throw new Exception("사용자 임의의 에러발생");
+	}
 }
 

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:p="http://www.springframework.org/schema/p"
-        xmlns:context="http://www.springframework.org/schema/context"
-        xmlns:mvc="http://www.springframework.org/schema/mvc"
-        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
-                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
 
     <context:component-scan base-package="egov">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
@@ -61,4 +64,31 @@
 	<!-- /For Pagination Tag -->
 
     <mvc:view-controller path="/cmmn/validator.do" view-name="cmmn/validator"/>
+
+
+	<!-- AOP -->
+	<!-- bean 등록 -->
+	<bean id="exampleAop" class="egov.lib.util.ExampleAop" />
+
+	<!-- Aspect 설정 -->
+	<aop:config>
+		<aop:aspect ref="exampleAop">
+			<aop:pointcut id="targetExample" expression="execution(* egov.**.web.*Controller.*(..))" />
+			<aop:before pointcut-ref="targetExample" method="beforeMethod" />
+			<aop:after-throwing pointcut-ref="targetExample" method="afterExceptionMethod" throwing="exception" />
+		</aop:aspect>
+
+		<aop:aspect ref="exampleAop">
+			<aop:pointcut id="targetExample2" expression="execution(* egov.**.web.*Controller.*(..))" />
+			<aop:after pointcut-ref="targetExample2" method="afterMethod" />
+		</aop:aspect>
+
+		<aop:aspect ref="exampleAop">
+			<aop:pointcut id="targetExample3" expression="execution(* egov.**.web.*Controller.*(..))" />
+			<aop:around pointcut-ref="targetExample3" method="aroundMethod" />
+		</aop:aspect>
+
+	</aop:config>
+	<!-- /AOP -->
+    
 </beans>
