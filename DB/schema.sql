@@ -6,7 +6,7 @@ CREATE TABLE EGOV_USER(
 );
 
 
-
+# 패키지 생성
 create or replace PACKAGE web_main AS
     PROCEDURE selectLogin
     (
@@ -41,3 +41,32 @@ create or replace PACKAGE BODY WEB_MAIN AS
   END selectLogin;
 
 END WEB_MAIN;
+
+
+# 게시판 테이블 생성
+CREATE TABLE EGOV_BBS (	
+    borderId NUMBER(10,0),
+    borderType VARCHAR2(1 BYTE),
+    groupNum NUMBER(10,0) DEFAULT 0,
+    parentId NUMBER(10,0) DEFAULT 0,
+    groupOrder NUMBER(10,0) DEFAULT 0,
+    groupTab NUMBER(10,0)  DEFAULT 0,
+    userId VARCHAR2(255 BYTE),
+    nickName VARCHAR2(255 BYTE),
+    writeDay DATE DEFAULT sysdate,
+    writerIp VARCHAR2(16),
+    editId VARCHAR2(255 BYTE),
+    editIp VARCHAR2(16),
+    title VARCHAR2(30),
+    borderText VARCHAR2(4000),
+    seeCount NUMBER(10,0) DEFAULT 0,
+    fileName VARCHAR(250),
+    fileType VARCHAR(30),
+    fileUrl VARCHAR(250),
+    replyCount NUMBER(10,0) DEFAULT 0,
+    CONSTRAINT PK_BBS PRIMARY KEY(borderid)
+);
+
+create sequence borderid_seq;
+
+commit;
