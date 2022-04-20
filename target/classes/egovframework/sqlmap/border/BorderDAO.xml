@@ -15,4 +15,9 @@
    { CALL web_main.selectBorder(#{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=borderResultMap})}
    </select>
    
+	<!-- 게시판 조회-->
+   <select id="selectView" statementType="CALLABLE" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+   { CALL web_main.selectView(#{borderId}, #{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=borderResultMap})}
+   </select>
+   
 </mapper>

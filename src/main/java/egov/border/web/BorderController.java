@@ -13,7 +13,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import egov.border.service.BorderService;
-import egov.main.service.MainService;
 
 @Controller
 public class BorderController {
@@ -84,7 +83,7 @@ public class BorderController {
 
 	
 	@RequestMapping(value="/borderList.do")
-	public String borderList(HttpServletRequest request,ModelMap model) throws Exception
+	public String borderList(HttpServletRequest request, ModelMap model) throws Exception
 	{
 		ArrayList<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
 		HashMap<String,Object> paramMap = new HashMap<String,Object>();
@@ -96,5 +95,22 @@ public class BorderController {
 		model.addAttribute("borderlist",list);
 		
 		return "border/borderlist";
+	}
+	
+	@RequestMapping(value="/borderView.do")
+	public String borderView(HttpServletRequest request, ModelMap model) throws Exception
+	{
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		ArrayList<HashMap<String,Object>> resultList = new ArrayList<HashMap<String,Object>>();
+		
+		String borderId = request.getParameter("no").toString();
+		paramMap.put("borderId", borderId);
+		paramMap.put("ref_cursor", null);
+		
+		borderService.selectView(paramMap);
+		resultList = (ArrayList<HashMap<String,Object>>)paramMap.get("ref_cursor");
+		model.addAttribute("resultList", resultList);
+		
+		return "border/borderview";
 	}
 }
