@@ -29,4 +29,9 @@ public class BorderServiceImpl extends EgovAbstractServiceImpl implements Border
 	public void selectView(HashMap<String, Object> paramMap) throws Exception {
 		borderDAO.selectView(paramMap);
 	}
+
+	@Override
+	public void insertBorderReply(HashMap<String, Object> paramMap) throws Exception {
+		borderDAO.insertBorderReply(paramMap);
+	}
 }

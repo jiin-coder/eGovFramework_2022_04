@@ -11,4 +11,5 @@ public interface BorderService {
 	void insertBorder(HashMap<String, Object> paramMap) throws Exception;
 	void selectBorder(HashMap<String, Object> paramMap) throws Exception;
 	void selectView(HashMap<String, Object> paramMap) throws Exception;
+	void insertBorderReply(HashMap<String, Object> paramMap) throws Exception;
 }
