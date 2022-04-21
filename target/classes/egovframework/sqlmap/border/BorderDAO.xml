@@ -20,8 +20,14 @@
    { CALL web_main.selectView(#{borderId}, #{ref_cursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=borderResultMap})}
    </select>
    
-   <!-- 게시판 답변-->
+   <!-- 게시글 답변-->
    <select id="insertBorderReply" statementType="CALLABLE" resultType="java.util.HashMap" parameterType="java.util.HashMap">
    { CALL web_main.insertBorderReply(#{borderid}, #{userId}, #{userIp}, #{title}, #{mytextarea})}
    </select>
+   
+   <!-- 게시글 수정-->
+   <select id="updateBorderEdit" statementType="CALLABLE" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+   { CALL web_main.updateBorderEdit(#{borderid}, #{userId}, #{userIp}, #{title}, #{mytextarea})}
+   </select>
+   
 </mapper>

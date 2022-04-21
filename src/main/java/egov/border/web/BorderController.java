@@ -155,5 +155,65 @@ public class BorderController {
 
 		return "redirect:/borderList.do";
 	}
+	
+	@RequestMapping(value = "/borderEdit.do")
+	public String borderEdit(HttpServletRequest request, ModelMap model) throws Exception {
+		String userId = "";
+		String no = "";
+		
+		if (request.getSession().getAttribute("USER_ID") == null) 
+		{
+			request.getSession().invalidate();
+			return "redirect:/login.do";
+		} 
+		else
+		{
+			userId = request.getSession().getAttribute("USER_ID").toString();
+		}
+		
+		no = request.getParameter("no").toString();
+		model.addAttribute("userId", userId);
+		model.addAttribute("no", no);
+
+		return "border/borderedit";
+	}
+	
+	@RequestMapping(value = "/borderEditReq.do")
+	public String borderEditReq(HttpServletRequest request, ModelMap model) throws Exception {
+		
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+
+		String title = request.getParameter("title").toString();
+		String mytextarea = request.getParameter("mytextarea").toString();
+		String userId = "";
+		String no = request.getParameter("no").toString();
+
+		if (title.length() > 15) 
+		{
+			return "redirect:/borderList.do";
+		} 
+		else if (mytextarea.length() > 2000) 
+		{
+			return "redirect:/borderList.do";
+		} 
+		else if (request.getSession().getAttribute("USER_ID") == null) 
+		{
+			request.getSession().invalidate();
+			return "redirect:/borderList.do";
+		} 
+		else 
+		{
+			userId = request.getSession().getAttribute("USER_ID").toString();
+			paramMap.put("borderid", no);
+			paramMap.put("userId", userId);
+			paramMap.put("userIp", request.getRemoteAddr());
+			paramMap.put("title", title);
+			paramMap.put("mytextarea", mytextarea);
+		}
+
+		borderService.updateBorderEdit(paramMap);
+
+		return "redirect:/borderList.do";
+	}
 
 }

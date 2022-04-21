@@ -34,4 +34,10 @@ public class BorderServiceImpl extends EgovAbstractServiceImpl implements Border
 	public void insertBorderReply(HashMap<String, Object> paramMap) throws Exception {
 		borderDAO.insertBorderReply(paramMap);
 	}
+
+	@Override
+	public void updateBorderEdit(HashMap<String, Object> paramMap) throws Exception {
+		borderDAO.updateBorderEdit(paramMap);
+		
+	}
 }

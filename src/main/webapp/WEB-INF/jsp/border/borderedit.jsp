@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    
     <style>
         .mytable
         {
@@ -30,7 +29,7 @@
         }
         .mytable .td4
         {
-            text-align: right;
+            text-align: center;
         }
 
         .mytable .mytextarea
@@ -41,27 +40,28 @@
     </style>
 </head>
 <body>
+    <form action="borderEditReq.do" method="post">
+    <input type="hidden" name="no" value="${no}">
     <table class="mytable">
         <tr>
             <td class="td1">작성자</td>
-            <td class="td2">${resultList[0].NICKNAME}</td>
+            <td class="td2">${userId}</td>
         </tr>
         <tr>
             <td class="td1">제목</td>
-            <td><input type="text" class="td2" name="title" readonly value="${resultList[0].TITLE}"></td>
+            <td><input type="text" class="td2" name="title"></td>
         </tr>
         <tr>
             <td class="td1 td3">내용</td>
-            <td><textarea class="td2 mytextarea" name="mytextarea" readonly>${resultList[0].BORDERTEXT}</textarea></td>
+            <td><textarea class="td2 mytextarea" name="mytextarea"></textarea></td>
         </tr>
         <tr>
             <td colspan="2" class="td4">
-                <a href="borderEdit.do?no=${resultList[0].BORDERID}"><input type="button" value="수정""></a>
-                <input type="button" value="삭제">
-                <a href="borderReply.do?no=${resultList[0].BORDERID}"><input type="button" value="답글"></a>
-                <a href="borderList.do"><input type="button" value="목록보기"></a>
+                <input type="submit" value="수정">
+               <a href="borderList.do"><input type="button" value="목록보기"></a>
             </td>
         </tr>
     </table>
+    </form>
 </body>
 </html>
