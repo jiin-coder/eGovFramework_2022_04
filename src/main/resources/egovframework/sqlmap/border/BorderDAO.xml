@@ -30,4 +30,8 @@
    { CALL web_main.updateBorderEdit(#{borderid}, #{userId}, #{userIp}, #{title}, #{mytextarea})}
    </select>
    
+   <!-- 게시판 삭제-->
+   <select id="updateBorderRemove" statementType="CALLABLE" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+   { CALL web_main.updateBorderRemove(#{borderid},#{userId},#{userIp})}
+   </select>
 </mapper>

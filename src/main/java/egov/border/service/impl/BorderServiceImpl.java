@@ -40,4 +40,9 @@ public class BorderServiceImpl extends EgovAbstractServiceImpl implements Border
 		borderDAO.updateBorderEdit(paramMap);
 		
 	}
+
+	@Override
+	public void updateBorderRemove(HashMap<String, Object> paramMap) throws Exception {
+		borderDAO.updateBorderRemove(paramMap);
+	}
 }

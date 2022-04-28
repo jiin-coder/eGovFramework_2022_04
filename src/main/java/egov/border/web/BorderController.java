@@ -215,5 +215,31 @@ public class BorderController {
 
 		return "redirect:/borderList.do";
 	}
+	
+	@RequestMapping(value = "/borderRemove.do")
+	public String borderRemove(HttpServletRequest request, ModelMap model) throws Exception {
+		
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+
+		String userId = "";
+		String no = request.getParameter("no").toString();
+
+		if (request.getSession().getAttribute("USER_ID") == null) 
+		{
+			request.getSession().invalidate();
+			return "redirect:/borderList.do";
+		} 
+		else 
+		{
+			userId = request.getSession().getAttribute("USER_ID").toString();
+			paramMap.put("borderid", no);
+			paramMap.put("userId", userId);
+			paramMap.put("userIp", request.getRemoteAddr());
+		}
+
+		borderService.updateBorderRemove(paramMap);
+
+		return "redirect:/borderList.do";
+	}
 
 }

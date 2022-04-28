@@ -56,8 +56,8 @@
         </tr>
         <tr>
             <td colspan="2" class="td4">
-                <a href="borderEdit.do?no=${resultList[0].BORDERID}"><input type="button" value="수정""></a>
-                <input type="button" value="삭제">
+                <a href="borderEdit.do?no=${resultList[0].BORDERID}" id="eidtbtn"><input type="button" value="수정""></a>
+                <a href="borderRemove.do?no=${resultList[0].BORDERID}" class="deletebtn"><input type="button" value="삭제"></a>
                 <a href="borderReply.do?no=${resultList[0].BORDERID}"><input type="button" value="답글"></a>
                 <a href="borderList.do"><input type="button" value="목록보기"></a>
             </td>
