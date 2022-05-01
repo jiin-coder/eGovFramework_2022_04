@@ -92,7 +92,7 @@ create or replace PACKAGE WEB_MAIN AS
             ref_cursor OUT SYS_REFCURSOR
         );
         
-        PROCEDURE selectView
+        PROCEDURE selectBorderView
         (
             In_borderId IN VARCHAR2,
             ref_cursor OUT SYS_REFCURSOR
@@ -214,7 +214,7 @@ create or replace PACKAGE BODY WEB_MAIN AS
     END selectBorder;
   
   
-    PROCEDURE selectView
+    PROCEDURE selectBorderView
     (
         In_borderId IN VARCHAR2,
         ref_cursor OUT SYS_REFCURSOR
@@ -231,7 +231,7 @@ create or replace PACKAGE BODY WEB_MAIN AS
          DBMS_OUTPUT.PUT_LINE('에러내용:'||SQLERRM);
          DBMS_OUTPUT.PUT_LINE('발생위치:'||DBMS_UTILITY.FORMAT_ERROR_BACKTRACE);
                 
-    END selectView;
+    END selectBorderView;
   
   
     PROCEDURE insertBorderReply

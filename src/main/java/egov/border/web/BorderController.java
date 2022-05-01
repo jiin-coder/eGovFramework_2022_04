@@ -22,6 +22,8 @@ public class BorderController {
 	@Resource(name = "BorderService")
 	BorderService borderService;
 
+	
+	/* 게시글 등록 page */
 	@RequestMapping(value = "/borderWrite.do")
 	public String borderWrite(HttpServletRequest request, ModelMap model) {
 		String userId = "";
@@ -38,6 +40,7 @@ public class BorderController {
 		return "border/borderwrite";
 	}
 
+	/* 게시글 등록 processing */
 	@RequestMapping(value = "/borderInsert.do")
 	public String borderInsert(HttpServletRequest request, ModelMap model) throws Exception {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
@@ -70,6 +73,7 @@ public class BorderController {
 		return "redirect:/borderList.do";
 	}
 
+	/* 게시글 리스팅 page */
 	@RequestMapping(value = "/borderList.do")
 	public String borderList(HttpServletRequest request, ModelMap model) throws Exception {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
@@ -84,22 +88,38 @@ public class BorderController {
 		return "border/borderlist";
 	}
 
+	/* 게시글 상세 page */
 	@RequestMapping(value = "/borderView.do")
 	public String borderView(HttpServletRequest request, ModelMap model) throws Exception {
+		
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		ArrayList<HashMap<String, Object>> resultList = new ArrayList<HashMap<String, Object>>();
 
 		String borderId = request.getParameter("no").toString();
+		
 		paramMap.put("borderId", borderId);
 		paramMap.put("ref_cursor", null);
 
-		borderService.selectView(paramMap);
+		borderService.selectBorderView(paramMap);
+		
 		resultList = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+		
+		if (request.getSession().getAttribute("USER_ID") == null) 
+		{
+			model.addAttribute("userid","");
+		} 
+		else 
+		{
+			model.addAttribute("userId", request.getSession().getAttribute("USER_ID").toString());
+			
+		}
 		model.addAttribute("resultList", resultList);
 
+		
 		return "border/borderview";
 	}
 
+	/* 답글 등록 processing */
 	@RequestMapping(value = "/borderReply.do")
 	public String borderReply(HttpServletRequest request, ModelMap model) throws Exception {
 		String userId = "";
@@ -119,6 +139,7 @@ public class BorderController {
 		return "border/borderreply";
 	}
 
+	
 	@RequestMapping(value = "/borderReplyReq.do")
 	public String borderReplyReq(HttpServletRequest request, ModelMap model) throws Exception {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
@@ -156,6 +177,7 @@ public class BorderController {
 		return "redirect:/borderList.do";
 	}
 	
+	/* 게시글 수정 */
 	@RequestMapping(value = "/borderEdit.do")
 	public String borderEdit(HttpServletRequest request, ModelMap model) throws Exception {
 		String userId = "";
@@ -210,12 +232,13 @@ public class BorderController {
 			paramMap.put("title", title);
 			paramMap.put("mytextarea", mytextarea);
 		}
-
+  
 		borderService.updateBorderEdit(paramMap);
 
 		return "redirect:/borderList.do";
 	}
 	
+	/* 게시글 삭제 processing*/
 	@RequestMapping(value = "/borderRemove.do")
 	public String borderRemove(HttpServletRequest request, ModelMap model) throws Exception {
 		
