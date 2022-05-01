@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-    <context:component-scan base-package="egov">
-       <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-    </context:component-scan>
+	<context:component-scan base-package="egov">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
 
-	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
 				<value>classpath:/egovframework/message/message-common</value>
 				<value>classpath:/egovframework/rte/fdl/idgnr/messages/idgnr</value>
-				<value>classpath:/egovframework/rte/fdl/property/messages/properties</value>
+				<value>classpath:/egovframework/rte/fdl/property/messages/properties
+				</value>
 			</list>
 		</property>
 		<property name="cacheSeconds">
 			<value>60</value>
 		</property>
 	</bean>
-	
+
 	<bean id="leaveaTrace" class="egovframework.rte.fdl.cmmn.trace.LeaveaTrace">
 		<property name="traceHandlerServices">
 			<list>
@@ -29,7 +32,8 @@
 		</property>
 	</bean>
 
-	<bean id="traceHandlerService" class="egovframework.rte.fdl.cmmn.trace.manager.DefaultTraceHandleManager">
+	<bean id="traceHandlerService"
+		class="egovframework.rte.fdl.cmmn.trace.manager.DefaultTraceHandleManager">
 		<property name="reqExpMatcher">
 			<ref bean="antPathMater" />
 		</property>
@@ -44,8 +48,24 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="antPathMater" class="org.springframework.util.AntPathMatcher" />
-	<bean id="defaultTraceHandler" class="egovframework.rte.fdl.cmmn.trace.handler.DefaultTraceHandler" />
-	 
+	<bean id="defaultTraceHandler"
+		class="egovframework.rte.fdl.cmmn.trace.handler.DefaultTraceHandler" />
+
+	<!-- 전자정부프레임워크에서 제공하는 거 사용 -->
+	<!-- 페이징 처리 빈 -->
+	<bean id="textRenderer" class="egov.lib.util.DefaultPaginationRenderer" />
+	<bean id="imageRenderer" class="egov.lib.util.ImagePaginationRenderer" />
+
+	<bean id="paginationManager"
+		class="egovframework.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager">
+		<property name="rendererType">
+			<map>
+				<entry key="image" value-ref="imageRenderer" />
+				<entry key="text" value-ref="textRenderer" />
+			</map>
+		</property>
+	</bean>
+
 </beans>
