@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import egov.border.service.BorderService;
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 
 @Controller
 public class BorderController {
@@ -80,10 +81,37 @@ public class BorderController {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("ref_cursor", null);
 
+		
+		/* 페이징 처리 Start */
+		/* 사용자의 요청 페이지 번호 */
+		String pageNo = request.getParameter("pageNo");
+		
+		if (null == pageNo||pageNo.equals("")){
+			pageNo = "1";
+		}
+		else {
+			pageNo = request.getParameter("pageNo").toString();
+		}
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(Integer.parseInt(pageNo)); // 현재 페이지 번호
+		paginationInfo.setPageSize(10); // 한 페이지에 게시되는 게시물 건수
+		paginationInfo.setRecordCountPerPage(10); // 페이징 리스트의 사이즈 입력 ex) 10 : <1> ~ <10>
+		
+		paramMap.put("currentPageNo", paginationInfo.getCurrentPageNo());
+		paramMap.put("RecordCountPerPage", paginationInfo.getRecordCountPerPage());
+		/* 페이징 처리 End */
+		
 		borderService.selectBorder(paramMap);
-
+		
+		int listcount = Integer.parseInt(paramMap.get("list_count").toString());
+		paginationInfo.setTotalRecordCount(listcount);
+		
 		list = (ArrayList<HashMap<String, Object>>) paramMap.get("ref_cursor");
+		
 		model.addAttribute("borderlist", list);
+		model.addAttribute("paginationInfo", paginationInfo);
+		model.addAttribute("pageNo", pageNo);
 
 		return "border/borderlist";
 	}
